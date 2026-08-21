@@ -1,6 +1,6 @@
 # AI Agent テンプレート・ライフサイクル運用ガイド (AGENT_TEMPLATE_LIFECYCLE.md)
 
-本ドキュメントは、汎用 AI Agent 開発基盤（`AGENTS.md`、Core スキル 9 種、DoD 4段自動検証、`agent_config.json`）を新規プロジェクトへ展開し、現場での経験を自律的にマスターへ還元・進化させるための標準運用プロトコルを定めます。
+本ドキュメントは、汎用 AI Agent 開発基盤（`AGENTS.md`、Core スキル 10 種、DoD 4段自動検証、`agent_config.json`）を新規プロジェクトへ展開し、現場での経験を自律的にマスターへ還元・進化させるための標準運用プロトコルを定めます。
 
 ---
 
@@ -36,7 +36,7 @@ bash scripts/sync_agent_template.sh -Init -TargetPath "/path/to/my-new-app"
 - `.agents/agent_config.json`: モデル定義、DoD コマンド、プロジェクト設定
 - `.agents/DOMAIN.md.example`: プロジェクト固有規約のテンプレート
 - `.agents/README.md`: スキルインデックス
-- `.agents/skills/`: 汎用 Core スキル 9 種（ADR、要件定義、リファクタリング、自己監査、リリースレビュー、テスト、キャッシュ等）
+- `.agents/skills/`: 汎用 Core スキル 10 種（ADR、要件定義、リファクタリング、自己監査、リリースレビュー、テスト、キャッシュ等）
 - `scripts/sync_agent_template.*`: 今後の同期・還元スクリプト
 - `docs/guides/AGENT_TEMPLATE_LIFECYCLE.md`: 本ガイド
 

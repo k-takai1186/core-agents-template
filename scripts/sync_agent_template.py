@@ -44,15 +44,17 @@ def run_self_diagnosis(template_root: Path, is_dry_run: bool = False) -> int:
     config_file = agents_dir / "agent_config.json"
     agents_md = agents_dir / "AGENTS.md"
     readme_md = agents_dir / "README.md"
+    root_readme = template_root / "README.md"
+    adr_template = template_root / "docs" / "adr" / "0000_template.md"
 
     errors = []
 
     # Check Core Files
-    for f in [config_file, agents_md, readme_md]:
+    for f in [config_file, agents_md, readme_md, root_readme, adr_template]:
         if not f.exists():
             errors.append(f"Missing core file: {f}")
         else:
-            print(f"  [OK] Found {f.name}")
+            print(f"  [OK] Found {f.relative_to(template_root)}")
 
     # Validate JSON
     if config_file.exists():
@@ -215,7 +217,7 @@ def deploy_template(template_root: Path, target_path: Path, is_dry_run: bool = F
                 shutil.copy2(script_file, dst_script)
                 print(f"  + Deployed: scripts/{script_file.name}")
 
-    # 4. Deploy Lifecycle Guide
+    # 4. Deploy Lifecycle Guide & ADR Template
     src_guide = template_root / "docs" / "guides" / "AGENT_TEMPLATE_LIFECYCLE.md"
     if src_guide.exists():
         dst_guide = target_docs / "AGENT_TEMPLATE_LIFECYCLE.md"
@@ -225,6 +227,17 @@ def deploy_template(template_root: Path, target_path: Path, is_dry_run: bool = F
             target_docs.mkdir(parents=True, exist_ok=True)
             shutil.copy2(src_guide, dst_guide)
             print("  + Deployed: docs/guides/AGENT_TEMPLATE_LIFECYCLE.md")
+
+    src_adr_tpl = template_root / "docs" / "adr" / "0000_template.md"
+    if src_adr_tpl.exists():
+        target_adr = target_path / "docs" / "adr"
+        dst_adr_tpl = target_adr / "0000_template.md"
+        if is_dry_run:
+            print("[DryRun] Deploy ADR Template: docs/adr/0000_template.md")
+        else:
+            target_adr.mkdir(parents=True, exist_ok=True)
+            shutil.copy2(src_adr_tpl, dst_adr_tpl)
+            print("  + Deployed: docs/adr/0000_template.md")
 
     print("\n[SUCCESS] AI Agent template successfully deployed!")
     return 0

@@ -1,0 +1,28 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# C extensions
+*.so
+
+# Environments & Packages
+.env
+.env.local
+.venv
+env/
+venv/
+ENV/
+
+# IDE & OS files
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.swp
+*~
+
+# AI Agent Sandbox & Backups
+.agents.bak_*
+_smoke_test_sandbox/
+logs/
