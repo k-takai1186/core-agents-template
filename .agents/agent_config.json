@@ -1,0 +1,28 @@
+{
+  "version": "1.0.0",
+  "project_name": "core-agents-template",
+  "language": "ja",
+  "models": {
+    "primary_agent": {
+      "role": "計画・実装・敵対的自己レビュー",
+      "default": "Gemini 3.7 Thinking",
+      "description": "高速・長文コンテキスト・思考モード対応モデル"
+    },
+    "review_agent": {
+      "role": "重大関門（Gate）での批判的精査",
+      "default": "Claude Opus 4.6",
+      "description": "破壊的変更・本番リリース前の高精度レビューモデル"
+    }
+  },
+  "dod_gates": {
+    "g1_lint": "python3 -m py_compile {{lint_target}}",
+    "g2_test": "python3 -m unittest discover -s tests",
+    "g3_build": "",
+    "g4_security": "python3 -c \"import json,sys;json.load(open(sys.argv[1]))\" .agents/agent_config.json"
+  },
+  "conventions": {
+    "commit_style": "Conventional Commits",
+    "adr_dir": "docs/adr",
+    "logs_dir": "logs"
+  }
+}
