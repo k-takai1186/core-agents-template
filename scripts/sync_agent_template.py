@@ -115,9 +115,10 @@ def run_smoke_test(template_root: Path) -> int:
             print("[FAIL] Deployed agent_config.json missing.")
             return 1
 
-        # Check for hardcoded absolute paths in deployed files
-        print("\n[Test 3/3] Checking for hardcoded absolute paths (file:///c:)...")
+        # Check for hardcoded absolute paths & unresolved placeholders in deployed files
+        print("\n[Test 3/3] Checking for absolute paths and unresolved placeholders...")
         found_abs_paths = []
+        found_unresolved = []
         for root, _, files in os.walk(deployed_agents):
             for file in files:
                 if file.endswith((".md", ".json")):
@@ -126,12 +127,20 @@ def run_smoke_test(template_root: Path) -> int:
                         content = f.read()
                         if "file:///c:" in content.lower():
                             found_abs_paths.append(str(file_path.relative_to(temp_test_dir)))
+                        if file == "agent_config.json" and "{{" in content:
+                            found_unresolved.append(str(file_path.relative_to(temp_test_dir)))
 
         if found_abs_paths:
             print(f"[FAIL] Hardcoded absolute paths found in: {found_abs_paths}")
             return 1
         else:
             print("  [OK] Zero hardcoded absolute paths found.")
+
+        if found_unresolved:
+            print(f"[FAIL] Unresolved placeholders found in deployed config: {found_unresolved}")
+            return 1
+        else:
+            print("  [OK] All placeholders successfully resolved.")
 
         print("\n[PASS] Smoke test completed successfully (exit 0)!")
         return 0
@@ -184,6 +193,7 @@ def deploy_template(template_root: Path, target_path: Path, is_dry_run: bool = F
                         cfg_content = f.read()
                     cfg_content = cfg_content.replace("{{PROJECT_NAME}}", target_path.name)
                     cfg_content = cfg_content.replace("{{config_path}}", ".agents/agent_config.json")
+                    cfg_content = cfg_content.replace("{{lint_target}}", "scripts/sync_agent_template.py")
                     with open(dst, "w", encoding="utf-8") as f:
                         f.write(cfg_content)
                 else:

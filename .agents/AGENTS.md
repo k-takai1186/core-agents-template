@@ -135,4 +135,4 @@ Primary Agent は、人間へ完了報告を行う前に、**`.agents/agent_conf
 ---
 
 ## 8. プロジェクト固有規約 (Domain Extensions)
-本プロジェクト特有のインフラ、データベース、業務ロジック規約は、[`.agents/DOMAIN.md`](.agents/DOMAIN.md) に定義されています。必要に応じて参照・カスタマイズしてください。
+本プロジェクト特有のインフラ、データベース、業務ロジック規約は、[`.agents/DOMAIN.md.example`](DOMAIN.md.example) を参考に `.agents/DOMAIN.md` を作成・定義してください。

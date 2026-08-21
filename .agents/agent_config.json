@@ -18,7 +18,7 @@
     "g1_lint": "python3 -m py_compile {{lint_target}}",
     "g2_test": "python3 -m unittest discover -s tests",
     "g3_build": "",
-    "g4_security": "python3 -c \"import json,sys;json.load(open(sys.argv[1]))\" .agents/agent_config.json"
+    "g4_security": "python3 -c \"import json,sys;json.load(open(sys.argv[1]))\" {{config_path}}"
   },
   "conventions": {
     "commit_style": "Conventional Commits",
